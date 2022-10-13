@@ -1,0 +1,96 @@
+.subscription-plan {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.subscription-plan form {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.subscription-plan form > .form-control {
+  width: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.subscription-plan form > .form-control > .ant-select,
+.subscription-plan form > .form-control > .ant-select-selector {
+  width: 100%;
+  height: 2.5rem;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: none;
+}
+
+.subscription-plan form .form-control * {
+  border: none;
+  outline: none;
+}
+
+.subscription-plan form .form-control select,
+.subscription-plan form .form-control input,
+.subscription-plan form > .form-control > .ant-select,
+.subscription-plan form > .form-control > button {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.subscription-plan form .form-control label {
+  width: 2rem;
+  flex-grow: 1;
+}
+
+.subscription-plan form .form-control select {
+  width: 100%;
+  height: 2.5rem;
+  flex-grow: 2;
+  padding: 0 0.313rem;
+}
+
+.subscription-plan form .form-control select option {
+  height: 2.5rem;
+}
+
+.subscription-plan form .form-control select:hover {
+  cursor: pointer;
+}
+
+.subscription-plan form .form-control input {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 0.625rem;
+}
+
+.subscription-plan form .form-control input::placeholder {
+  color: #000000;
+}
+
+.subscription-plan > form > div:nth-child(4) > div > div > span {
+  color: unset;
+}
+
+.subscription-plan form .form-control button {
+  background-color: #382b11;
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: 0.4s all;
+}
+
+.subscription-plan form .form-control button:hover {
+  cursor: pointer;
+  transform: translateY(-0.188rem);
+}
