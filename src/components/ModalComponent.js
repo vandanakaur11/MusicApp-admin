@@ -6,7 +6,7 @@ const ModalComponent = ({
   showModal,
   handleCancel,
   handleOk,
-  month,
+  days,
   onSubmit,
 }) => {
   // const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,7 +39,7 @@ const ModalComponent = ({
         onCancel={handleCancel}
       >
         <div style={{ fontSize: "20px", textAlign: "center" }}>
-          `Sure you want to select ${month}`
+          `Sure you want to select ${days}`
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div

@@ -3,80 +3,91 @@ import { publicAPI } from "../constants";
 import { getUserTrial } from "../redux/reducers/userReducer";
 
 export const fetchUsers = async (page, perPage) => {
-  try {
-    const res = await publicAPI.get(
-      `/admin/users?page=${page ? page : 1}&perPage=${perPage ? perPage : 10}`
-    );
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        const res = await publicAPI.get(`/admin/users?page=${page ? page : 1}&perPage=${perPage ? perPage : 10}`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const getTrialUsers = async (page, perPage) => {
-  console.log("called");
-  try {
-    const res = await publicAPI.get(
-      `/admin/trial-users?page=${page ? page : 1}&perPage=${
-        perPage ? perPage : 10
-      }`
-    );
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+    console.log("called");
+    try {
+        const res = await publicAPI.get(`/admin/trial-users?page=${page ? page : 1}&perPage=${perPage ? perPage : 10}`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const revokeAccess = async (id) => {
-  try {
-    const res = await publicAPI.get(`/admin/revoke?id=${id}`);
-    console.log(res);
-    Swal.fire(res?.data?.message, "", "success").then(() => {
-      getUserTrial();
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        const res = await publicAPI.get(`/admin/revoke?id=${id}`);
+        console.log(res);
+        Swal.fire(res?.data?.message, "", "success").then(() => {
+            getUserTrial();
+        });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-export const generateCode = async (body) => {
-  try {
-    const res = await publicAPI.post(`/admin/codes`, body);
-    console.log(res);
-    Swal.fire(res?.data?.message, "", "success").then(() => {
-      getUserTrial();
-    });
-  } catch (error) {
-    console.log(error);
-  }
+export const addCode = async (body) => {
+    try {
+        const res = await publicAPI.post(`/admin/codes`, body);
+        console.log("addCode res", res);
+
+        Swal.fire(res?.data?.message, "", "success").then(() => {
+            getUserTrial();
+        });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const getAllGeneratedCodes = async () => {
-  try {
-    const res = await publicAPI.get(`/admin/codes`);
-    console.log(res);
+    try {
+        const res = await publicAPI.get(`/admin/codes`);
+        console.log("getAllGeneratedCodes res", res);
 
-    Swal.fire(res?.data?.message, "", "success").then(() => {
-      getUserTrial();
-    });
-    return res.data.data.codes;
-  } catch (error) {
-    console.log(error);
-  }
+        Swal.fire(res?.data?.message, "", "success").then(() => {
+            getUserTrial();
+        });
+
+        return res?.data?.data?.codes;
+    } catch (error) {
+        console.log(error);
+    }
 };
+
 export const addDuration = async (body) => {
-  try {
-    const res = await publicAPI.post(`/admin/durations`, body);
-    console.log(res);
+    try {
+        const res = await publicAPI.post(`/admin/durations`, body);
+        console.log("addDuration res", res);
 
-    Swal.fire(res?.data?.message, "", "success").then(() => {
-      getUserTrial();
-    });
-    return res.data.data.codes;
-  } catch (error) {
-    console.log(error);
-  }
+        if (res) {
+            Swal.fire(res?.data?.message, "", "success").then(() => {
+                getUserTrial();
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        Swal.fire("Oops...", error, "question");
+    }
 };
+
+export const getAllGeneratedDurations = async () => {
+    try {
+        const res = await publicAPI.get(`/admin/durations`);
+        console.log("getAllGeneratedDurations res", res);
+
+        return res?.data?.data?.durations;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 // export const getAlbum = async () => {
 //   try {
 //     const res = await publicAPI.get(`/admin/album`);

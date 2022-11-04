@@ -58,7 +58,6 @@ const LayoutDesktop = ({ children, active }) => {
           </div> */}
           <LayoutMenu active={active} />
         </Sider>
-
         <Layout>
           <Header>
             <div onClick={toggle} className="trigger">
@@ -66,11 +65,10 @@ const LayoutDesktop = ({ children, active }) => {
                 {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
               </span>
               <span className="header-right">
-                <p>Mulder Music</p>
+                <p> Mulder Music </p>
               </span>
             </div>
           </Header>
-
           <Content>
             <div
             //   style={{

@@ -1,14 +1,12 @@
 import { Typography } from "antd";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import Layout from "../layout/DashboarLayout";
-import { generateCode, getAllGeneratedCodes } from "../Api";
-import { getCodes, getAllCodes } from "../redux/reducers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import TableComponent from "../components/TableComponent";
-import { getPageDetails } from "../utils/pageInfo";
+import { addCode, getAllGeneratedCodes } from "../Api";
 import { publicAPI } from "../constants";
+import Layout from "../layout/DashboarLayout";
+import { getAllCodes } from "../redux/reducers/userReducer";
+import { getPageDetails } from "../utils/pageInfo";
 
 const columns = [
   {
@@ -23,31 +21,39 @@ const columns = [
   },
 ];
 
-const GenerateCodes = () => {
+const Codes = () => {
   const dispatch = useDispatch();
   const codes = useSelector((state) => state.userReducer.allCodes);
   const users = useSelector((state) => state.userReducer.trialusers);
   const [pageDetails, setPageDetails] = useState({});
   const [generatedCodes, setGeneratedCodes] = useState([]);
+  const [code, setCode] = useState("");
 
   console.log("all codes", codes);
   const { Title } = Typography;
-  const [code, setCode] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     try {
       let body = {
         code,
       };
-      let res = await generateCode(body);
+
+      let res = await addCode(body);
+
       // if (res) {
+
       let res1 = await getAllGeneratedCodes();
 
-      // setGeneratedCodes(res1)
+      setGeneratedCodes(res1);
+
       dispatch(getAllCodes(res1));
+
       setCode("");
+
       console.log("get all codes", res1);
+
       // dispatch(getCodes(res))
       // }
     } catch (err) {
@@ -63,15 +69,16 @@ const GenerateCodes = () => {
   }, [codes]);
 
   return (
-    <Layout active={"generate-codes"}>
+    <Layout active={"codes"}>
       <div className="general-margin-padding">
         <Title className="general-title-h1">
           <AiOutlineUser style={{ marginRight: "10px" }} />
-          Generate Code
+          Codes
         </Title>
       </div>
       <form onSubmit={(e) => onSubmit(e)}>
         <input
+          placeholder="Enter Codes"
           onChange={(e) => setCode(e.target.value)}
           value={code}
           style={{
@@ -81,32 +88,19 @@ const GenerateCodes = () => {
             padding: "0 10px",
           }}
         />
-        {code === "" ? (
-          <button
-            disabled
-            style={{
-              backgroundColor: "gray",
-              color: "#fff",
-              height: "50px",
-              cursor: "no-drop",
-            }}
-            type="submit"
-          >
-            Submit
-          </button>
-        ) : (
-          <button
-            style={{
-              backgroundColor: "#382B11",
-              color: "#fff",
-              height: "50px",
-              cursor: "pointer",
-            }}
-            type="submit"
-          >
-            Submit
-          </button>
-        )}
+        <button
+          disabled={code === "" ? true : false}
+          style={{
+            border: "none",
+            backgroundColor: code === "" ? "gray" : "black",
+            color: "#fff",
+            height: "50px",
+            cursor: code === "" ? "no-drop" : "pointer",
+          }}
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
 
       <div
@@ -159,4 +153,4 @@ const GenerateCodes = () => {
   );
 };
 
-export default GenerateCodes;
+export default Codes;

@@ -5,7 +5,7 @@ const initialState = {
   trialusers: null,
   codes: null,
   allCodes: null,
-  durationCodes: null,
+  allDurations: null,
 };
 
 export const userSlice = createSlice({
@@ -24,8 +24,8 @@ export const userSlice = createSlice({
     getAllCodes: (state, { payload }) => {
       state.allCodes = payload;
     },
-    durationCodesGenerated: (state, { payload }) => {
-      state.durationCodes = payload;
+    getAllDuration: (state, { payload }) => {
+      state.allDurations = payload;
     },
   },
   //   extraReducers: {
@@ -35,12 +35,7 @@ export const userSlice = createSlice({
   //   },
 });
 
-export const {
-  getUsers,
-  getUserTrial,
-  getCodes,
-  getAllCodes,
-  durationCodesGenerated,
-} = userSlice.actions;
+export const { getUsers, getUserTrial, getCodes, getAllCodes, getAllDuration } =
+  userSlice.actions;
 
 export default userSlice.reducer;
