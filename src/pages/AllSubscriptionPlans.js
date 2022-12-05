@@ -36,7 +36,7 @@ const AllSubscriptionPlans = () => {
         setAllSubscriptions(data?.data?.subscriptions);
       }
     } catch (err) {
-      // console.error("err >>>>>>>>>>", err);
+      console.error("err >>>>>>>>>>", err);
     }
   };
 

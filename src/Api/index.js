@@ -23,7 +23,7 @@ export const getTrialUsers = async (page, perPage) => {
     );
     return res.data;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -35,7 +35,7 @@ export const revokeAccess = async (id) => {
       getUserTrial();
     });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -48,7 +48,7 @@ export const addCode = async (body) => {
       getUserTrial();
     });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -63,7 +63,7 @@ export const getAllGeneratedCodes = async () => {
 
     return res?.data?.data?.codes;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -78,7 +78,7 @@ export const addDuration = async (body) => {
       });
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     Swal.fire("Oops...", error, "question");
   }
 };
@@ -90,7 +90,7 @@ export const getAllGeneratedDurations = async () => {
 
     return res?.data?.data?.durations;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -104,7 +104,7 @@ export const getAllGeneratedDurations = async () => {
 //     });
 //     return res.data.data.codes
 //   } catch (error) {
-//     console.log(error);
+// console.log(error);
 //   }
 // };
 // export const getDuration = async () => {

@@ -223,7 +223,7 @@ const SubscriptionPlan = () => {
         Swal.fire("Subscription Created", "", "success");
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 
