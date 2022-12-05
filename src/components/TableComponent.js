@@ -13,7 +13,7 @@ const TableComponent = ({ data, columns, pageDetails, setUpdate }) => {
     totalPages,
     total,
   } = pageDetails;
-  console.log(data, pageDetails);
+  // console.log(data, pageDetails);
 
   // console.log(
   //   hasNextPage,
@@ -28,13 +28,13 @@ const TableComponent = ({ data, columns, pageDetails, setUpdate }) => {
   const dispatch = useDispatch();
 
   const onShowSizeChange = async (current, pageSize) => {
-    console.log(current, pageSize);
+    // console.log(current, pageSize);
     const data = await fetchUsers(current, pageSize);
     dispatch(getUsers(data));
   };
 
   const onPageChange = async (pageNumber) => {
-    console.log(pageNumber);
+    // console.log(pageNumber);
     const data = await fetchUsers(pageNumber);
     dispatch(getUsers(data));
   };

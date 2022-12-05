@@ -29,7 +29,7 @@ const Codes = () => {
   const [generatedCodes, setGeneratedCodes] = useState([]);
   const [code, setCode] = useState("");
 
-  console.log("all codes", codes);
+  // console.log("all codes", codes);
   const { Title } = Typography;
 
   const onSubmit = async (e) => {
@@ -52,12 +52,12 @@ const Codes = () => {
 
       setCode("");
 
-      console.log("get all codes", res1);
+      // console.log("get all codes", res1);
 
       // dispatch(getCodes(res))
       // }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

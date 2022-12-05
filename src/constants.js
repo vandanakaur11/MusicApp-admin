@@ -10,7 +10,7 @@ export const base_url = `${publicIP}`;
 export const connection_string = `${base_url}`;
 
 export const publicAPI = Axios.create({
-  baseURL: process.env.REACT_APP_LOCAL_BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 
 export const page = 1;

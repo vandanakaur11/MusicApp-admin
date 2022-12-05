@@ -43,7 +43,7 @@ const UserDash = () => {
   const [pageDetails, setPageDetails] = useState({});
   const users = useSelector((state) => state.userReducer.users);
   const dispatch = useDispatch();
-  console.log(users);
+  // console.log(users);
 
   useEffect(() => {
     const fetchData = async () => {

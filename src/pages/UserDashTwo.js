@@ -42,7 +42,7 @@ const UserDashTwo = () => {
   const [data, setData] = useState(null);
   const [pageDetails, setPageDetails] = useState({});
   const users = useSelector((state) => state.userReducer.trialusers);
-  console.log(users);
+  // console.log(users);
   const dispatch = useDispatch();
 
   useEffect(() => {
