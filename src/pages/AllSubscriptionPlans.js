@@ -1,38 +1,20 @@
-import { Select, Typography } from "antd";
-import React, { Fragment, useEffect, useState } from "react";
+import { Typography } from "antd";
+import { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { publicAPI } from "../constants";
-import Layout from "../layout/DashboarLayout";
+import { publicAPI } from "./../constants";
+import Layout from "./../layout/DashboarLayout";
 import "./../styles/pages/subscription-plan.css";
-
-/* const columns = [
-  {
-    title: "ID",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Codes",
-    dataIndex: "date",
-    key: "date",
-  },
-]; */
 
 const AllSubscriptionPlans = () => {
   const { Title } = Typography;
 
   const [allSubscriptions, setAllSubscriptions] = useState([]);
-  // const []
 
   const getAllSubscriptions = async () => {
     try {
       const { data } = await publicAPI.get("/admin/subscriptions");
 
-      // console.log("getAlbums data >>>>>>>>>>>>>", data);
-
       if (data) {
-        // console.log("all subscriptions", data?.data?.subscriptions);
         setAllSubscriptions(data?.data?.subscriptions);
       }
     } catch (err) {

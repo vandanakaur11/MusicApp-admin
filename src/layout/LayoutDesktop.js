@@ -1,13 +1,12 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
-import Logo from "../../src/images/logo.svg";
-// const { Header, Sider, Content } = Layout;
-import React, { useState } from "react";
-import LayoutMenu from "./LayoutMenu.js";
-
-const { Header, Content, Sider } = Layout;
+import { useState } from "react";
+import Logo from "./../../src/images/logo.svg";
+import LayoutMenu from "./LayoutMenu";
 
 const LayoutDesktop = ({ children, active }) => {
+  const { Header, Content, Sider } = Layout;
+
   const [collapsed, setCollapsed] = useState(false);
 
   const toggle = () => {

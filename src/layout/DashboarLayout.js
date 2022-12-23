@@ -1,4 +1,4 @@
-import DashboardLayoutDesktop from "./LayoutDesktop.js";
+import DashboardLayoutDesktop from "./LayoutDesktop";
 
 const DashboardLayout = ({ active, children }) => {
   return (

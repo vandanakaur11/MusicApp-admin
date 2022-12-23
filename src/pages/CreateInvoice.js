@@ -2,7 +2,45 @@ import { Button, Col, Input, Row, Select, Table, Typography } from "antd";
 import { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { FaFileInvoice } from "react-icons/fa";
-import Layout from "../layout/DashboarLayout";
+import Layout from "./../layout/DashboarLayout";
+
+const columns = [
+  {
+    title: "Product Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Service Name",
+    dataIndex: "service",
+    key: "service",
+  },
+  {
+    title: "Quantity",
+    dataIndex: "quantity",
+    key: "quantity",
+  },
+  {
+    title: "Price",
+    key: "price",
+    dataIndex: "price",
+  },
+  {
+    title: "Total",
+    key: "total",
+    dataIndex: "total",
+  },
+  {
+    title: "Discount",
+    key: "discount",
+    dataIndex: "discount",
+  },
+  {
+    title: "Discount Total",
+    key: "discountT",
+    dataIndex: "discountT",
+  },
+];
 
 const CreateInvoice = () => {
   const { Title } = Typography;
@@ -10,44 +48,6 @@ const CreateInvoice = () => {
   const { TextArea } = Input;
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
-  const columns = [
-    {
-      title: "Product Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Service Name",
-      dataIndex: "service",
-      key: "service",
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
-    },
-    {
-      title: "Price",
-      key: "price",
-      dataIndex: "price",
-    },
-    {
-      title: "Total",
-      key: "total",
-      dataIndex: "total",
-    },
-    {
-      title: "Discount",
-      key: "discount",
-      dataIndex: "discount",
-    },
-    {
-      title: "Discount Total",
-      key: "discountT",
-      dataIndex: "discountT",
-    },
-  ];
 
   const data = [
     {

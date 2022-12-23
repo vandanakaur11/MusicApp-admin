@@ -1,6 +1,6 @@
 import { Table, Typography } from "antd";
 import { AiFillDashboard } from "react-icons/ai";
-import Layout from "../layout/DashboarLayout";
+import Layout from "./../layout/DashboarLayout";
 
 const dataSource = [
   {

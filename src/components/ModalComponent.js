@@ -1,5 +1,4 @@
 import { Button, Modal } from "antd";
-import React from "react";
 
 const ModalComponent = ({
   isModalVisible,

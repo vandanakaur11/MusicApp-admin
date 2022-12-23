@@ -1,44 +1,32 @@
 import { Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { addDuration, getAllGeneratedDurations } from "../Api";
-import ModalComponent from "../components/ModalComponent";
-import { publicAPI } from "../constants";
-import Layout from "../layout/DashboarLayout";
-import { getAllDuration } from "../redux/reducers/userReducer";
-
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Codes",
-    dataIndex: "date",
-    key: "date",
-  },
-];
+import { addDuration, getAllGeneratedDurations } from "./../Api";
+import { publicAPI } from "./../constants";
+import Layout from "./../layout/DashboarLayout";
+import { getAllDuration } from "./../redux/reducers/userReducer";
 
 const Durations = () => {
-  const dispatch = useDispatch();
+  const { Title } = Typography;
 
   const codes = useSelector((state) => state.userReducer.allCodes);
   const users = useSelector((state) => state.userReducer.trialusers);
 
+  const dispatch = useDispatch();
+
   const [pageDetails, setPageDetails] = useState({});
   const [generatedDurations, setGeneratedDurations] = useState([]);
-
-  // console.log("all codes", codes);
-
-  const { Title } = Typography;
-
-  // const [code, setCode] = useState("")
   const [days, setDays] = useState("");
   const [durationCode, setDurationCode] = useState([]);
-
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(async () => {
+    const res = await publicAPI.get(`/admin/durations`);
+    setDurationCode(res.data.data.durations);
+    // console.log(res.data.data.durations);
+    dispatch(getAllDuration(res.data.data.durations));
+  }, [days]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -52,7 +40,7 @@ const Durations = () => {
     setIsModalVisible(false);
   };
 
-  var checkTime = (new Date().getTime() / 1000) * 60 * 60 * days;
+  const checkTime = (new Date().getTime() / 1000) * 60 * 60 * days;
   // console.log(checkTime);
 
   const onSubmit = async (e) => {
@@ -82,13 +70,6 @@ const Durations = () => {
       console.log(err);
     }
   };
-
-  useEffect(async () => {
-    const res = await publicAPI.get(`/admin/durations`);
-    setDurationCode(res.data.data.durations);
-    // console.log(res.data.data.durations);
-    dispatch(getAllDuration(res.data.data.durations));
-  }, [days]);
 
   return (
     <Layout active={"durations"}>
@@ -182,12 +163,6 @@ const Durations = () => {
           </div>
         </div>
       ))}
-
-      {/* <TableComponent
-        data={codes}
-        columns={columns}
-        pageDetails={pageDetails}
-      /> */}
     </Layout>
   );
 };

@@ -6,12 +6,11 @@ import {
 } from "@ant-design/icons";
 import { Dropdown, Layout, Menu, Typography } from "antd";
 import { Link } from "react-router-dom";
-
 import DashboardMenuDrawer from "./MenuDrawer";
 
-const { Content } = Layout;
-
 const MobileLayout = ({ active, children }) => {
+  const { Content } = Layout;
+
   const menu = (
     <Menu>
       <Menu.Item key="0" icon={<UserOutlined />}>

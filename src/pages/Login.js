@@ -1,9 +1,9 @@
 import { Button, Input, Typography } from "antd";
-// import "../styles/pages/login.css";
-import Logo from "../../src/images/logo.svg";
+import Logo from "./../../src/images/logo.svg";
 
 const Login = () => {
   const { Title } = Typography;
+
   return (
     <div className="login">
       <div className="login-container">

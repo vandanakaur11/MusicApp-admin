@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "../Api";
-import { getUsers } from "../redux/reducers/userReducer";
+import { fetchUsers } from "./../Api";
+import { getUsers } from "./../redux/reducers/userReducer";
 
 const TableComponent = ({ data, columns, pageDetails, setUpdate }) => {
   const {
@@ -28,13 +28,11 @@ const TableComponent = ({ data, columns, pageDetails, setUpdate }) => {
   const dispatch = useDispatch();
 
   const onShowSizeChange = async (current, pageSize) => {
-    // console.log(current, pageSize);
     const data = await fetchUsers(current, pageSize);
     dispatch(getUsers(data));
   };
 
   const onPageChange = async (pageNumber) => {
-    // console.log(pageNumber);
     const data = await fetchUsers(pageNumber);
     dispatch(getUsers(data));
   };

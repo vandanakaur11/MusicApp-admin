@@ -1,13 +1,13 @@
 import { Button, Typography } from "antd";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrialUsers, revokeAccess } from "../Api";
-import TableComponent from "../components/TableComponent";
-import Layout from "../layout/DashboarLayout";
-import { getUserTrial } from "../redux/reducers/userReducer";
-import { getPageDetails } from "../utils/pageInfo";
+import { getTrialUsers, revokeAccess } from "./../Api";
+import TableComponent from "./../components/TableComponent";
+import Layout from "./../layout/DashboarLayout";
+import { getUserTrial } from "./../redux/reducers/userReducer";
+import { getPageDetails } from "./../utils/pageInfo";
 
 const columns = [
   {
@@ -39,55 +39,57 @@ const columns = [
 
 const UserDashTwo = () => {
   const { Title } = Typography;
-  const [data, setData] = useState(null);
-  const [pageDetails, setPageDetails] = useState({});
+
   const users = useSelector((state) => state.userReducer.trialusers);
-  // console.log(users);
+
   const dispatch = useDispatch();
 
+  const [data, setData] = useState(null);
+  const [pageDetails, setPageDetails] = useState({});
+
+  const fetchData = async () => {
+    const data = await getTrialUsers();
+    dispatch(getUserTrial(data));
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getTrialUsers();
-      dispatch(getUserTrial(data));
-    };
     fetchData();
   }, []);
 
-  useEffect(() => {
-    let tempArr = [];
+  let tempArr = [];
 
-    const fetchUser = async () => {
-      let getPageInfo = await getPageDetails(users);
-      setPageDetails(getPageInfo);
+  const fetchUser = async () => {
+    let getPageInfo = await getPageDetails(users);
+    setPageDetails(getPageInfo);
 
-      users?.docs?.map((user) => {
-        tempArr.push({
-          key: user?._id,
-          email: user?.email,
-          date: moment(user?.createdAt).format("MMM Do YY"),
-          code: user?.code,
-          status: user?.trial ? (
-            <span className="green-tag">Active</span>
-          ) : (
-            <span className="red-tag">Expired</span>
-          ),
-          action: (
-            <Button
-              disabled={!user.trial}
-              type="primary"
-              onClick={() => handleRevokeUser(user?._id)}
-            >
-              Revoke Access
-            </Button>
-          ),
-        });
+    users?.docs?.map((user) => {
+      tempArr.push({
+        key: user?._id,
+        email: user?.email,
+        date: moment(user?.createdAt).format("MMM Do YY"),
+        code: user?.code,
+        status: user?.trial ? (
+          <span className="green-tag">Active</span>
+        ) : (
+          <span className="red-tag">Expired</span>
+        ),
+        action: (
+          <Button
+            disabled={!user.trial}
+            type="primary"
+            onClick={() => handleRevokeUser(user?._id)}
+          >
+            Revoke Access
+          </Button>
+        ),
       });
+    });
 
-      setData(tempArr);
-    };
+    setData(tempArr);
+  };
 
+  useEffect(() => {
     fetchUser();
-    // console.log(tempArr);
   }, [users]);
 
   const handleRevokeUser = async (id) => {

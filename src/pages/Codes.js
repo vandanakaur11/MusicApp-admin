@@ -1,36 +1,31 @@
 import { Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { addCode, getAllGeneratedCodes } from "../Api";
-import { publicAPI } from "../constants";
-import Layout from "../layout/DashboarLayout";
-import { getAllCodes } from "../redux/reducers/userReducer";
-import { getPageDetails } from "../utils/pageInfo";
-
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Codes",
-    dataIndex: "date",
-    key: "date",
-  },
-];
+import { addCode, getAllGeneratedCodes } from "./../Api";
+import { publicAPI } from "./../constants";
+import Layout from "./../layout/DashboarLayout";
+import { getAllCodes } from "./../redux/reducers/userReducer";
+import { getPageDetails } from "./../utils/pageInfo";
 
 const Codes = () => {
-  const dispatch = useDispatch();
+  const { Title } = Typography;
+
   const codes = useSelector((state) => state.userReducer.allCodes);
   const users = useSelector((state) => state.userReducer.trialusers);
-  const [pageDetails, setPageDetails] = useState({});
-  const [generatedCodes, setGeneratedCodes] = useState([]);
-  const [code, setCode] = useState("");
 
-  // console.log("all codes", codes);
-  const { Title } = Typography;
+  const dispatch = useDispatch();
+
+  const [pageDetails, setPageDetails] = useState({});
+  const [code, setCode] = useState("");
+  const [generatedCodes, setGeneratedCodes] = useState([]);
+
+  useEffect(async () => {
+    let getPageInfo = await getPageDetails(users);
+    setPageDetails(getPageInfo);
+    const res1 = await publicAPI.get(`/admin/codes`);
+    setGeneratedCodes(res1.data.data.codes);
+  }, [codes]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -60,13 +55,6 @@ const Codes = () => {
       console.log(err);
     }
   };
-
-  useEffect(async () => {
-    let getPageInfo = await getPageDetails(users);
-    setPageDetails(getPageInfo);
-    const res1 = await publicAPI.get(`/admin/codes`);
-    setGeneratedCodes(res1.data.data.codes);
-  }, [codes]);
 
   return (
     <Layout active={"codes"}>

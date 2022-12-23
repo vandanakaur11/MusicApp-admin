@@ -1,11 +1,11 @@
 import { Select, Typography } from "antd";
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { publicAPI } from "../constants";
-import Layout from "../layout/DashboarLayout";
-import "./../styles/pages/subscription-plan.css";
 import Swal from "sweetalert2";
+import { publicAPI } from "./../constants";
+import Layout from "./../layout/DashboarLayout";
+import "./../styles/pages/subscription-plan.css";
 
 /* const columns = [
   {
@@ -21,14 +21,15 @@ import Swal from "sweetalert2";
 ]; */
 
 const SubscriptionPlan = () => {
-  let emp_list = ["test"];
+  const { Title } = Typography;
+  const { Option } = Select;
 
-  const dispatch = useDispatch();
+  let emp_list = ["test"];
 
   const codes = useSelector((state) => state.userReducer.allCodes);
   const users = useSelector((state) => state.userReducer.trialusers);
 
-  const { Option } = Select;
+  const dispatch = useDispatch();
 
   const [pageDetails, setPageDetails] = useState({});
   const [codeList, setCodeList] = useState([]);
@@ -97,21 +98,11 @@ const SubscriptionPlan = () => {
   // handle click event of the Add button
   const handleAddClick = () => {
     setInputList([...inputList, { albumID: "", songsID: [] }]);
-
-    // console.log("inputList >>>>>>>>", inputList);
   };
-
-  //////////////////////////////////
-
-  // console.log("all codes", codes);
-
-  const { Title } = Typography;
 
   const getCodes = async () => {
     try {
       const { data } = await publicAPI.get("/admin/codes");
-
-      // console.log("getCodes data >>>>>>>>>>>>>", data);
 
       if (data) {
         setCodeList(data.data.codes);
@@ -126,8 +117,6 @@ const SubscriptionPlan = () => {
     try {
       const { data } = await publicAPI.get("/admin/durations");
 
-      // console.log("getDurations data >>>>>>>>>>>>>", data);
-
       if (data) {
         setDurationList(data.data.durations);
         getAlbums();
@@ -140,8 +129,6 @@ const SubscriptionPlan = () => {
   const getAlbums = async () => {
     try {
       const { data } = await publicAPI.get("/api/albums");
-
-      // console.log("getAlbums data >>>>>>>>>>>>>", data);
 
       if (data) {
         setAlbumList([...data]);
@@ -157,17 +144,13 @@ const SubscriptionPlan = () => {
     try {
       const { data } = await publicAPI.get(`/api/songs/${e.target.value}`);
 
-      // console.log("getSongs data >>>>>>>>>>>>>", data);
-
       if (data) {
         setSongList([...data[0]]);
       }
     } catch (err) {
-      // console.error("err >>>>>>>>>>", err);
+      console.error("err >>>>>>>>>>", err);
     }
   };
-
-  // console.log(songList);
 
   const handleSongChange = (arrOfIds) => {
     // console.log("id >>>>>>>>>>>", arrOfIds);
@@ -187,9 +170,6 @@ const SubscriptionPlan = () => {
     arr.forEach((obj) => {
       setSelectedSongObj((oldObject) => [...oldObject, obj]);
     });
-
-    // console.log("arr >>>>>>>>>>>>>>", arr);
-    // console.log("selectedSongObj >>>>>>>>>>>>>>", selectedSongObj);
   };
 
   const checkTime = (new Date().getTime() / 1000) * 60 * 60 * month;
@@ -213,13 +193,10 @@ const SubscriptionPlan = () => {
         // albumID: adad,
         // songID,
       };
-      // console.log("ONSUBMIT===>", payload);
 
       const { data } = await publicAPI.post("/admin/subscriptions", payload);
 
       if (data) {
-        // console.log("onSubmit-Posted-Data >>>>>>>>", data);
-
         Swal.fire("Subscription Created", "", "success");
       }
     } catch (err) {

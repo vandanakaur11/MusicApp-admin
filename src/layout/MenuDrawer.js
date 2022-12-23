@@ -1,7 +1,6 @@
 import { AntDesignOutlined, MenuOutlined } from "@ant-design/icons";
 import { Avatar, Button, Drawer } from "antd";
-import React, { useState } from "react";
-
+import { useState } from "react";
 import LayoutMenu from "./LayoutMenu";
 
 const MenuStyle = {
