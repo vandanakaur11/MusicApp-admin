@@ -1,7 +1,7 @@
 import { Select, Typography } from "antd";
 import { Fragment, useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { publicAPI } from "./../constants";
 import Layout from "./../layout/DashboarLayout";
@@ -26,8 +26,7 @@ const SubscriptionPlan = () => {
 
   let emp_list = ["test"];
 
-  const codes = useSelector((state) => state.userReducer.allCodes);
-  const users = useSelector((state) => state.userReducer.trialusers);
+  const { language } = useSelector((state) => state.userReducer, shallowEqual);
 
   const dispatch = useDispatch();
 
@@ -213,7 +212,7 @@ const SubscriptionPlan = () => {
       <div className="general-margin-padding">
         <Title className="general-title-h1">
           <AiOutlineUser style={{ marginRight: "10px" }} />
-          Subscription Plan
+          {language === "nl" ? "Abonnementsplan" : "Subscription Plan"}
         </Title>
       </div>
 
@@ -225,7 +224,9 @@ const SubscriptionPlan = () => {
               onChange={(e) => setCode(e.target.value)}
               value={code}
             >
-              <option>Select Codes</option>
+              <option>
+                {language === "nl" ? "Selecteer Codes" : "Select Codes"}
+              </option>
               {codeList.map((data, index) => (
                 <option key={index} value={data?.code}>
                   {data.code}
@@ -240,7 +241,9 @@ const SubscriptionPlan = () => {
               onChange={(e) => setDuration(e.target.value)}
               value={duration}
             >
-              <option>Select Duration</option>
+              <option>
+                {language === "nl" ? "Selecteer Duur" : "Select Duration"}
+              </option>
               {durationList.map((data, index) => (
                 <option key={index} value={data?.duration}>
                   {data.duration} {data.duration > 1 ? "Days" : "Day"}
@@ -292,7 +295,9 @@ const SubscriptionPlan = () => {
                     onChange={(e) => getSongs(e)}
                     value={album}
                   >
-                    <option>Select Album</option>
+                    <option>
+                      {language === "nl" ? "Selecteer Album" : "Select Album"}
+                    </option>
                     {albumList.map((data, index) => (
                       <option key={index} value={data.Album_Name}>
                         {!emp_list.includes(data.Album_Name) && data.Album_Name}
@@ -308,7 +313,9 @@ const SubscriptionPlan = () => {
                       width: "100%",
                       height: "unset",
                     }}
-                    placeholder="Select Songs"
+                    placeholder={
+                      language === "nl" ? "Selecteer Liedjes" : "Select Songs"
+                    }
                     onChange={(id) => handleSongChange(id)}
                     optionLabelProp="label"
                   >
@@ -333,12 +340,16 @@ const SubscriptionPlan = () => {
                       className="mr10"
                       onClick={() => handleRemoveClick(i)}
                     >
-                      Remove
+                      {language === "nl" ? "Verwijderen" : "Remove"}
                     </button>
                   )}
 
                   {inputList.length - 1 === i && (
-                    <button onClick={handleAddClick}>Add more album</button>
+                    <button onClick={handleAddClick}>
+                      {language === "nl"
+                        ? "Voeg meer albums toe"
+                        : "Add more album"}
+                    </button>
                   )}
                 </div>
               </Fragment>
@@ -372,14 +383,16 @@ const SubscriptionPlan = () => {
               type="number"
               name="price"
               min="0"
-              placeholder="Enter Price"
+              placeholder={language === "nl" ? "Prijs invoeren" : "Enter Price"}
               onChange={(e) => setPrice(e.target.value)}
               value={price}
             />
           </div>
 
           <div className="form-control">
-            <button type="submit">Submit</button>
+            <button type="submit">
+              {language === "nl" ? "Indienen" : "Submit"}
+            </button>
           </div>
         </form>
       </div>

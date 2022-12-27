@@ -1,10 +1,13 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout } from "antd";
 import { useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 import Logo from "./../../src/images/logo.svg";
 import LayoutMenu from "./LayoutMenu";
 
 const LayoutDesktop = ({ children, active }) => {
+  const { language } = useSelector((state) => state.userReducer, shallowEqual);
+
   const { Header, Content, Sider } = Layout;
 
   const [collapsed, setCollapsed] = useState(false);
@@ -63,8 +66,9 @@ const LayoutDesktop = ({ children, active }) => {
               <span>
                 {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
               </span>
+
               <span className="header-right">
-                <p> Mulder Music </p>
+                <p> {language === "nl" ? "Mulders muziek" : "Mulder Music"} </p>
               </span>
             </div>
           </Header>

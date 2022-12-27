@@ -9,40 +9,42 @@ import Layout from "./../layout/DashboarLayout";
 import { getUserTrial } from "./../redux/reducers/userReducer";
 import { getPageDetails } from "./../utils/pageInfo";
 
-const columns = [
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Registration Date",
-    dataIndex: "date",
-    key: "date",
-  },
-  {
-    title: "Trial Code",
-    dataIndex: "code",
-    key: "code",
-  },
-  {
-    title: "Trial Status",
-    dataIndex: "status",
-    key: "status",
-  },
-  {
-    title: "Actions",
-    dataIndex: "action",
-    key: "action",
-  },
-];
-
 const UserDashTwo = () => {
   const { Title } = Typography;
 
-  const users = useSelector((state) => state.userReducer.trialusers);
+  const { trialusers: users, language } = useSelector(
+    (state) => state.userReducer
+  );
 
   const dispatch = useDispatch();
+
+  const columns = [
+    {
+      title: language === "nl" ? "E-mail" : "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: language === "nl" ? "Registratie datum" : "Registration Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: language === "nl" ? "Proefcode" : "Trial Code",
+      dataIndex: "code",
+      key: "code",
+    },
+    {
+      title: language === "nl" ? "Proefstatus" : "Trial Status",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
+      title: language === "nl" ? "Acties" : "Actions",
+      dataIndex: "action",
+      key: "action",
+    },
+  ];
 
   const [data, setData] = useState(null);
   const [pageDetails, setPageDetails] = useState({});
@@ -79,6 +81,7 @@ const UserDashTwo = () => {
             type="primary"
             onClick={() => handleRevokeUser(user?._id)}
           >
+            {/* {language === "nl" ? "Toegang intrekken" : "Revoke Access"} */}
             Revoke Access
           </Button>
         ),
@@ -103,7 +106,7 @@ const UserDashTwo = () => {
       <div className="general-margin-padding">
         <Title className="general-title-h1">
           <AiOutlineUserSwitch style={{ marginRight: "10px" }} />
-          Trial Users
+          {language === "nl" ? "Proef gebruikers" : "Trial Users"}
         </Title>
       </div>
       <TableComponent data={data} columns={columns} pageDetails={pageDetails} />

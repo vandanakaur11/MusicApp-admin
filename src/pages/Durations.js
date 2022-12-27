@@ -1,7 +1,7 @@
 import { Typography } from "antd";
 import { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { addDuration, getAllGeneratedDurations } from "./../Api";
 import { publicAPI } from "./../constants";
 import Layout from "./../layout/DashboarLayout";
@@ -10,8 +10,14 @@ import { getAllDuration } from "./../redux/reducers/userReducer";
 const Durations = () => {
   const { Title } = Typography;
 
-  const codes = useSelector((state) => state.userReducer.allCodes);
-  const users = useSelector((state) => state.userReducer.trialusers);
+  const {
+    codes: allCodes,
+    trialusers: users,
+    language,
+  } = useSelector((state) => state.userReducer, shallowEqual);
+
+  // const codes = useSelector((state) => state.userReducer.allCodes);
+  // const users = useSelector((state) => state.userReducer.trialusers);
 
   const dispatch = useDispatch();
 
@@ -76,13 +82,13 @@ const Durations = () => {
       <div className="general-margin-padding">
         <Title className="general-title-h1">
           <AiOutlineUser style={{ marginRight: "10px" }} />
-          Duration
+          {language === "nl" ? "Duur" : "Durations"}
         </Title>
       </div>
 
       <form onSubmit={(e) => onSubmit(e)} style={{ display: "flex" }}>
         <input
-          placeholder="Enter Days"
+          placeholder={language === "nl" ? "Voer Dagen in" : "Enter Days"}
           min="0"
           max="365"
           type="number"
@@ -106,7 +112,7 @@ const Durations = () => {
           }}
           type="submit"
         >
-          Submit
+          {language === "nl" ? "Indienen" : "Submit"}
         </button>
         {/* <input onChange={(e) => setDay(e.target.value)} value={day} style={{ marginLeft: "20px", height: "50px", width: "300px", padding: "0 10px" }} /> */}
         {/* {days !== "" ? (
@@ -132,9 +138,11 @@ const Durations = () => {
         }}
       >
         <div style={{ marginRight: "30px", fontSize: "16px", width: "50%" }}>
-          S.No
+          {language === "nl" ? "S.Nr" : "S.No"}
         </div>
-        <div style={{ fontSize: "16px" }}>Duration</div>
+        <div style={{ fontSize: "16px" }}>
+          {language === "nl" ? "Looptijd" : "Duration"}
+        </div>
       </div>
       {durationCode?.map((data, i) => (
         <div

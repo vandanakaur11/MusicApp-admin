@@ -6,6 +6,7 @@ const initialState = {
   codes: null,
   allCodes: null,
   allDurations: null,
+  language: "en",
 };
 
 export const userSlice = createSlice({
@@ -27,6 +28,10 @@ export const userSlice = createSlice({
     getAllDuration: (state, { payload }) => {
       state.allDurations = payload;
     },
+    // language Mode
+    setLanguageMode: (state, { payload }) => {
+      state.language = payload;
+    },
   },
   //   extraReducers: {
   //     [fetchUsers]: (state, action) => {
@@ -35,7 +40,13 @@ export const userSlice = createSlice({
   //   },
 });
 
-export const { getUsers, getUserTrial, getCodes, getAllCodes, getAllDuration } =
-  userSlice.actions;
+export const {
+  getUsers,
+  getUserTrial,
+  getCodes,
+  getAllCodes,
+  getAllDuration,
+  setLanguageMode,
+} = userSlice.actions;
 
 export default userSlice.reducer;

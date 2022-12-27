@@ -11,8 +11,11 @@ import { getPageDetails } from "./../utils/pageInfo";
 const Codes = () => {
   const { Title } = Typography;
 
-  const codes = useSelector((state) => state.userReducer.allCodes);
-  const users = useSelector((state) => state.userReducer.trialusers);
+  const {
+    allCodes: codes,
+    trialusers: users,
+    language,
+  } = useSelector((state) => state.userReducer);
 
   const dispatch = useDispatch();
 
@@ -66,7 +69,7 @@ const Codes = () => {
       </div>
       <form onSubmit={(e) => onSubmit(e)}>
         <input
-          placeholder="Enter Codes"
+          placeholder={language === "nl" ? "Codes invoeren" : "Enter Codes"}
           onChange={(e) => setCode(e.target.value)}
           value={code}
           style={{
@@ -87,7 +90,7 @@ const Codes = () => {
           }}
           type="submit"
         >
-          Submit
+          {language === "nl" ? "Indienen" : "Submit"}
         </button>
       </form>
 
@@ -101,9 +104,11 @@ const Codes = () => {
         }}
       >
         <div style={{ marginRight: "30px", fontSize: "16px", width: "50%" }}>
-          S.No
+          {language === "nl" ? "S.Nr" : "S.No"}
         </div>
-        <div style={{ fontSize: "16px" }}>Column</div>
+        <div style={{ fontSize: "16px" }}>
+          {language === "nl" ? "Kolom" : "Column"}
+        </div>
       </div>
 
       {generatedCodes?.map((data, i) => (

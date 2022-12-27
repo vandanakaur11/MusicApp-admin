@@ -2,47 +2,50 @@ import { Button, Typography } from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fetchUsers, revokeAccess } from "./../Api";
 import TableComponent from "./../components/TableComponent";
 import Layout from "./../layout/DashboarLayout";
 import { getUsers } from "./../redux/reducers/userReducer";
 import { getPageDetails } from "./../utils/pageInfo";
 
-const columns = [
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Registration Date",
-    dataIndex: "date",
-    key: "date",
-  },
-  {
-    title: "Trial Code",
-    dataIndex: "code",
-    key: "code",
-  },
-  // {
-  //   title: "Trial Status",
-  //   dataIndex: "status",
-  //   key: "status",
-  // },
-  {
-    title: "Actions",
-    dataIndex: "action",
-    key: "action",
-  },
-];
-
 const UserDash = () => {
   const { Title } = Typography;
 
-  const users = useSelector((state) => state.userReducer.users);
+  const { users, language } = useSelector(
+    (state) => state.userReducer,
+    shallowEqual
+  );
 
   const dispatch = useDispatch();
+
+  const columns = [
+    {
+      title: language === "nl" ? "E-mail" : "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: language === "nl" ? "Registratie datum" : "Registration Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: language === "nl" ? "Proefcode" : "Trial Code",
+      dataIndex: "code",
+      key: "code",
+    },
+    // {
+    //   title: language === "nl" ? "Proefstatus" : "Trial Status",
+    //   dataIndex: "status",
+    //   key: "status",
+    // },
+    {
+      title: language === "nl" ? "Acties" : "Actions",
+      dataIndex: "action",
+      key: "action",
+    },
+  ];
 
   const [data, setData] = useState(null);
   const [pageDetails, setPageDetails] = useState({});
@@ -72,6 +75,7 @@ const UserDash = () => {
         // status: user?.code ? "Active" : "Inactive",
         action: (
           <Button type="primary" onClick={() => revokeAccess(user?._id)}>
+            {/* {language === "nl" ? "Toegang intrekken" : "Revoke Access"} */}
             Revoke Access
           </Button>
         ),
@@ -85,14 +89,12 @@ const UserDash = () => {
     fetchUser();
   }, [users]);
 
-  const handleRevokeUser = (id) => {};
-
   return (
     <Layout active={"users"}>
       <div className="general-margin-padding">
         <Title className="general-title-h1">
           <AiOutlineUser style={{ marginRight: "10px" }} />
-          Users
+          {language === "nl" ? "Gebruikers" : "Users"}
         </Title>
       </div>
       <TableComponent

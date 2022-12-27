@@ -1,11 +1,14 @@
 import { Typography } from "antd";
 import { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
+import { shallowEqual, useSelector } from "react-redux";
 import { publicAPI } from "./../constants";
 import Layout from "./../layout/DashboarLayout";
 import "./../styles/pages/subscription-plan.css";
 
 const AllSubscriptionPlans = () => {
+  const { language } = useSelector((state) => state.userReducer, shallowEqual);
+
   const { Title } = Typography;
 
   const [allSubscriptions, setAllSubscriptions] = useState([]);
@@ -31,7 +34,7 @@ const AllSubscriptionPlans = () => {
       <div className="general-margin-padding">
         <Title className="general-title-h1">
           <AiOutlineUser style={{ marginRight: "10px" }} />
-          Subscription Plan
+          {language === "nl" ? "Alle abonnementen" : "All Subscription Plans"}
         </Title>
       </div>
 

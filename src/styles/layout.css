@@ -23,6 +23,7 @@
 
 .layoutDesktop .header-right p {
   font-size: 0.7em;
+  margin-bottom: 0 !important;
 }
 
 .layoutDesktop .header-right p:hover {
@@ -86,6 +87,7 @@
   font-size: 2em;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #fff;
   cursor: pointer;
   /* margin-left: 10px; */
